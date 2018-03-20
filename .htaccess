@@ -1,0 +1,33 @@
+#Personnaliser les erreurs
+#ErrorDocument 401 ./erreurs/erreur_401.php
+#ErrorDocument 402 ./erreurs/erreur_402.php
+#ErrorDocument 403 ./erreurs/erreur_403.html
+#ErrorDocument 404 ./erreurs/erreur_404.html
+#ErrorDocument 405 ./erreurs/erreur_404.php
+#ErrorDocument 406 ./erreurs/erreur_404.php
+#ErrorDocument 407 ./erreurs/erreur_404.php
+#ErrorDocument 408 ./erreurs/erreur_404.php
+#ErrorDocument 409 ./erreurs/erreur_404.php
+
+# le renomage des pages fonctionne 
+#rewriting_module a activer sur apache
+
+Options -Indexes
+#deny from all
+
+Options +FollowSymlinks
+RewriteEngine On
+
+#Page d'acceuil
+RewriteRule ^accueil$ index.php [L]
+
+#Page d'authentification
+RewriteRule ^connexion&Inscription$ controller/authentification_main.php [L]
+RewriteRule ^rendez-vous$ controller/liste_rdv_main.php [L]
+RewriteRule ^deconnect$ controller/authentification_main.php [L]
+RewriteRule ^patient$ controller/patient_main.php [L]
+RewriteRule ^patient/([\w\s]{5,200})([=])([=$])$ controller/patient_main.php?id=[0-9] [L]
+RewriteRule ^patient/([\w\s]{5,200})[/]([\w\s]{5,200})[=][=$]$ controller/patient_main.php [L]
+RewriteRule ^patient/([\w\s]{5,200})[+]([\w\s]{5,200})[=][=$]$ controller/patient_main.php [L]
+
+
