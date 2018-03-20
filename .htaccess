@@ -30,4 +30,20 @@ RewriteRule ^patient/([\w\s]{5,200})([=])([=$])$ controller/patient_main.php?id=
 RewriteRule ^patient/([\w\s]{5,200})[/]([\w\s]{5,200})[=][=$]$ controller/patient_main.php [L]
 RewriteRule ^patient/([\w\s]{5,200})[+]([\w\s]{5,200})[=][=$]$ controller/patient_main.php [L]
 
+#Page Liste des rendez_vous
+RewriteRule ^rdv$ controller/liste_rdv_main.php [L]
 
+#Page Ajout d'un rdv
+RewriteRule ^ajoutRdv$ controller/ajout_rdv_main.php [L]
+
+#Page Modifier un rdv
+RewriteRule ^modifRdv/[0-9]+$ controller/ajout_rdv_main.php?idRdv= [QSA,L]
+
+#Page Suivis
+RewriteRule ^suivis$ controller/suivis_main.php [L]
+
+#Page Medecin
+RewriteRule ^medecin$ controller/liste_medecin_main.php [L]
+
+#Page Message
+RewriteRule ^message$ controller/message_main.php [L]

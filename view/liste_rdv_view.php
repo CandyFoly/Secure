@@ -1,46 +1,52 @@
 <?php
-$id = substr($_SERVER['REQUEST_URI'], 30);
-if($id == ''){
-	?>
-	<table>
-		<thead>
-			<th>Nom</th>
-			<th>Prenom</th>
-		</thead>
-		<tbody>
-			<?php
-				foreach($rep as $key=>$value){
-					echo '<td><a href="patient/'.Chiffrement::crypt($rep[$key]->id).'">'.$rep[$key]->nom.'</a></td>
-						  <td>'.$rep[$key]->prenom.'</td>';
-				}
-			?>
-		</tbody>
-	</table>
-	<?php
-}else{
+echo $_SESSION["id"];
+if($_SESSION['type'] == "patient"){
 	$bdd = new connexion();
-	$sel = "SELECT * FROM utilisateur WHERE id = :id;";
-	$rep = $bdd->prepareQuery($sel, array(':id'=>Chiffrement::decrypt($id)));
-	echo '<table>
-			<tr>
-				<td><label>Nom : </label></td>
-				<td><label>'.$rep[0]->nom.'</label></td>
-				<td><label>Prénom : </label></td>
-				<td><label>'.$rep[0]->prenom.'</label></td>
-				<td><label>Téléphone : </label></td>
-				<td><label>'.$rep[0]->telephone.'</label></td>
-				<td><label>E-mail : </label></td>
-				<td><label>'.$rep[0]->mail.'</label></td>
-			</tr>
-			<tr>
-				<td><label>Adresse : </label></td>
-				<td><label>'.$rep[0]->adresse.'</label></td>
-				<td><label>Médecin<br/>
-							Traitant : </label></td>
-				<td><label>'.$rep[0]->mTraitant.'</label></td>
-				<td><label>Numéro<br/>
-							Securité Social : </label></td>
-				<td><label>'.$rep[0]->num_secu.'</label></td>
-			</tr>
-		</table>';
+	$selRdv = "SELECT * FROM rendez_vous where id_patient = :idP ORDER BY date DESC;";
+	$rep = $bdd->prepareQuery($selRdv, array(":idP" => $_SESSION["id"]));
+
+	$sel = "SELECT DISTINCT DATE(NOW()) AS jour FROM rendez_vous;";
+	$repD = $bdd->prepareQuery($sel, array());
+	var_dump($repD);
 }
+?>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Rendez-vous</title>
+	</head>
+	<body>
+	<form method="post" action="rdv">
+		<table>
+		<?php
+			for ($i=0; $i < sizeof($rep); $i++) {
+				$selM = "SELECT * FROM utilisateur WHERE id = :idM;";
+				$reqM = $bdd->prepareQuery($selM, array(":idM" => $rep[$i]->id_medecin));
+				echo "<tr>";
+				echo "<td>".$rep[$i]->date.""."</td>";
+				echo "<td>".$rep[$i]->descriptif."</td>";
+				echo "<td>".$reqM[0]->prenom." ".$reqM[0]->nom."</td>";
+				if ($rep[$i]->presence == 0) {
+					echo "<td>Absent</td>";
+				}
+				else{
+					echo "<td>Present</td>";
+				}
+				//$_SESSION["mod"] = $rep[$i]->id;
+
+				if ($rep[$i]->date > $repD[0]->jour) {
+					echo "<td><a href='controller/ajout_rdv_main.php?idRdv=".$rep[$i]->id."'>Modifier</a></td>";
+				}
+				echo "<td>".$_SESSION["mod"]."</td>";
+				echo "</tr>";
+				//unset($_SESSION["mod"]);
+				//$_SESSION["mod"] = $rep[$i]->id;
+				echo "session : ".$_SESSION["mod"];
+			}
+		?>	
+		</table>
+		<input type="submit" name="AjoutRdv" value="Prendre un rendez-vous">
+	</form>
+	</body>
+</html>
