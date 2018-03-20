@@ -6,7 +6,7 @@ class connexion{
 	private  $db_host;
 	private  $pdo;
 	
-	public function __construct($db_name = "hopital", $db_user = "root", $db_pass = "", $db_host = "127.0.0.1"){
+	public function __construct($db_name = "hopital", $db_user = "root", $db_pass = "root", $db_host = "127.0.0.1"){
 		$this->db_name = $db_name;
 		$this->db_user = $db_user;
 		$this->db_pass = $db_pass;
@@ -17,7 +17,7 @@ class connexion{
 	{
 		if($this->pdo ===null){
 			
-			$pdo = new PDO('mysql:dbname=hopital;host=127.0.0.1', 'root', '');
+			$pdo = new PDO('mysql:dbname=hopital;host=127.0.0.1', 'root', 'root');
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$this->pdo = $pdo;
 		}

@@ -4,12 +4,11 @@ include('entete_view.php');
 <div class="article"><p>
 <?php
 if(isset($_SESSION['connect'])){
-	if($_SESSION['connect'] == 1){	
+	if($_SESSION['connect'] == 1){
 		?>
-		<p>Vous êtes bien connecté. Et vous êtes de type </p>
+		<p>Vous êtes bien connecté. Et vous êes de type </p>
 		<?php
 		echo $_SESSION['type'];
-		var_dump($_SESSION);
 	}
 }
 ?>

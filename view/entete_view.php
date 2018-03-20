@@ -3,7 +3,6 @@
 $adresse = $_SERVER['PHP_SELF'];
 $a = explode('/', $adresse);
 $i = sizeof($a);
-var_dump($a[$i-1]);
 if($a[$i-1] == 'index.php'){
 	require("class/autoloader.class.php");
 }else{

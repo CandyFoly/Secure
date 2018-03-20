@@ -1,4 +1,8 @@
 <?php
+if(isset($_SESSION['connect'])){
+	session_destroy();
+	header('Location: accueil');
+}
 if(isset($_POST['connexion'])){
 	$bdd = new connexion();
 	$ins = "SELECT * FROM utilisateur where login = :login AND pass = :pass ;";
@@ -9,7 +13,7 @@ if(isset($_POST['connexion'])){
 	$rep_user = $bdd->prepareQuery($ins, array(":id" => $rep[0]->type));
 
 	if(sizeof($rep) == 1){
-		$_SESSION["id"] = $rep[0]->id;
+		$_SESSION['id'] = $rep[0]->id;
 		$_SESSION['connect'] = 1;
 		$_SESSION['type'] = $rep_user[0]->libelle;
 
