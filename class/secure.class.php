@@ -14,6 +14,21 @@ class secure{
 		"robot.txt",
 		"admin",
 	);
+
+	static private $regex = array(
+		"#[^\w\s<]#",
+		"#[^\w\s<>]#",
+		"#[^\w\s/]#",
+		"#[^\w\s</>]#",
+		"#[^\w\s<\w\s/>]#",
+		"#[^\w\s<\w\s>]#"		
+	);
+
+	static private $regex1 = array(
+		"#[\w\s]#",
+		"#[\w\s][,][\w\s]#"
+	);
+
 	function detecteURLBlanche($server, $uri){
 		if($server == '127.0.0.1'){
 			$url = explode('/', $uri);
@@ -25,7 +40,6 @@ class secure{
 				detecteURLNoir($server, $url);
 			}
 		}
-
 	}
 
 	function detecteURLNoir($server, $uri){
@@ -37,7 +51,6 @@ class secure{
 				echo  $rep;
 			}
 		}
-
 	}
 
     /**
@@ -66,6 +79,13 @@ class secure{
 		return $uri;
 	}
 
-	
+	static function protectSQL($post){
+		foreach (Secure::$regex as $key => $value) {
+			if(preg_match($value, $post))return false;
+		}
+		foreach(Secure::$regex1 as $key => $value){
+			if(preg_match($value, $post))return true;
+		}return false;
+	}
 }
 ?>
