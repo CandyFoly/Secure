@@ -1,0 +1,23 @@
+#menu{
+	background-color: #0FAAAF;
+	width : 300px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font-size: 20px;
+	font-family : initial;
+	margin-left:10%;
+}
+#article{
+	padding-left:30%;
+	margin-left:;
+}
+footer{
+	background-color: #0FAAAF;
+	padding:10px;
+}
+#corps{
+	width:80%;
+	height: 70%;
+	margin-left:10%;
+
+}
