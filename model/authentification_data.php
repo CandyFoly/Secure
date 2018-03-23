@@ -13,9 +13,9 @@ if(isset($_POST['connexion'])){
 	$rep_user = $bdd->prepareQuery($ins, array(":id" => $rep[0]->type));
 
 	if(sizeof($rep) == 1){
-		$_SESSION['id'] = $rep[0]->id;
+		$_SESSION['id'] = Chiffrement::crypt($rep[0]->id);
 		$_SESSION['connect'] = 1;
-		$_SESSION['type'] = $rep_user[0]->libelle;
+		$_SESSION['type'] = Chiffrement::crypt($rep_user[0]->libelle);
 
 		header('Location: accueil');
 	}
