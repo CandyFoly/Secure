@@ -2,7 +2,9 @@
 #ErrorDocument 401 ./erreurs/erreur_401.php
 #ErrorDocument 402 ./erreurs/erreur_402.php
 #ErrorDocument 403 ./erreurs/erreur_403.html
-#ErrorDocument 404 ./erreurs/erreur_404.html
+
+#pas interprété comme chemin mais comme texte
+ErrorDocument 404 index.php
 #ErrorDocument 405 ./erreurs/erreur_404.php
 #ErrorDocument 406 ./erreurs/erreur_404.php
 #ErrorDocument 407 ./erreurs/erreur_404.php
@@ -30,14 +32,14 @@ RewriteRule ^patient/([\w\s]{5,200})([=])([=$])$ controller/patient_main.php?id=
 RewriteRule ^patient/([\w\s]{5,200})[/]([\w\s]{5,200})[=][=$]$ controller/patient_main.php [L]
 RewriteRule ^patient/([\w\s]{5,200})[+]([\w\s]{5,200})[=][=$]$ controller/patient_main.php [L]
 
-#Page Liste des rendez_vous
-RewriteRule ^rdv$ controller/liste_rdv_main.php [L]
-
 #Page Ajout d'un rdv
-RewriteRule ^ajoutRdv$ controller/ajout_rdv_main.php [L]
+RewriteRule ^ajouter-rendez-vous$ controller/ajout_rdv_main.php [L]
 
 #Page Modifier un rdv
-RewriteRule ^modifRdv/[0-9]+$ controller/ajout_rdv_main.php?idRdv= [QSA,L]
+RewriteRule ^rendez-vous/([\w\s]{5,200})[+]([\w\s]{5,200})[=][=$]$ controller/ajout_rdv_main.php [L]
+RewriteRule ^rendez-vous/([\w\s]{5,200})[+]([\w\s]{5,200})[+]([\w\s]{1,200})[=][=$]$ controller/ajout_rdv_main.php [L]
+RewriteRule ^rendez-vous/([\w\s]{5,200})([=])([=$])$ controller/ajout_rdv_main.php [L]
+RewriteRule ^rendes-vous/([\w\s]{5,200})[/]([\w\s]{5,200})[=][=$]$ controller/ajout_rdv_main.php [L]
 
 #Page Suivis
 RewriteRule ^suivis$ controller/suivis_main.php [L]
