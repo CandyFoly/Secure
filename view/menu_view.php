@@ -1,16 +1,19 @@
-<div id="menu">
+<div id="menu" class="div">
 <?php
 if(isset($_SESSION['connect'])){
 	echo '<ul>';
-	if($_SESSION['type'] == "patient"){}
-	else if($_SESSION['type'] == "medecin"){
+	if(Chiffrement::decrypt($_SESSION['type']) == "patient"){
+		echo '<li><a href="'.Html::redirection().'rendez-vous">Rendez-vous</a></li>';
+		echo '<li><a href="'.Html::redirection().'rendez-vous">Rendez-vous</a></li>';
+	}
+	else if(Chiffrement::decrypt($_SESSION['type']) == "medecin"){
 		echo "
 			<li><a href='".Html::redirection()."rendez-vous'>Rendez-vous</a></li>
 			<li><a href='".Html::redirection()."patient'>Patient</a></li>";
 	}
-	else if($_SESSION['type'] == "admin"){}
+	else if(Chiffrement::decrypt($_SESSION['type']) == "admin"){}
 		echo '
-				<li><a href="deconnect">Deconnexion</a></li>
+				<li><a href="'.Html::redirection().'deconnect">Deconnexion</a></li>
 			</ul>';
 }else{
 	?>

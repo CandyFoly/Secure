@@ -1,5 +1,6 @@
+<div class='div' id='article'>
 <?php
-$id = substr($_SERVER['REQUEST_URI'], 30);
+$id = substr($_SERVER['REQUEST_URI'], 23);
 if($id == ''){
 	?>
 	<table>
@@ -44,3 +45,5 @@ if($id == ''){
 			</tr>
 		</table>';
 }
+?>
+</div>

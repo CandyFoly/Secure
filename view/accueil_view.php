@@ -1,7 +1,7 @@
 <?php
 include('entete_view.php');
 ?>
-<div class="article"><p>
+<div id="article"><p>
 <?php
 if(isset($_SESSION['connect'])){
 	if($_SESSION['connect'] == 1){

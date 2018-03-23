@@ -1,25 +1,8 @@
+<div id="article" class="div">
+<table>
 <?php
-echo $_SESSION["id"];
-if($_SESSION['type'] == "patient"){
-	$bdd = new connexion();
-	$selRdv = "SELECT * FROM rendez_vous where id_patient = :idP ORDER BY date DESC;";
-	$rep = $bdd->prepareQuery($selRdv, array(":idP" => $_SESSION["id"]));
-
-	$sel = "SELECT DISTINCT DATE(NOW()) AS jour FROM rendez_vous;";
-	$repD = $bdd->prepareQuery($sel, array());
-	var_dump($repD);
-}
-?>
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Rendez-vous</title>
-	</head>
-	<body>
-	<form method="post" action="rdv">
-		<table>
-		<?php
+if(isset($rep)){
+	if(Chiffrement::decrypt($_SESSION['type']) == "patient"){
 			for ($i=0; $i < sizeof($rep); $i++) {
 				$selM = "SELECT * FROM utilisateur WHERE id = :idM;";
 				$reqM = $bdd->prepareQuery($selM, array(":idM" => $rep[$i]->id_medecin));
@@ -33,20 +16,40 @@ if($_SESSION['type'] == "patient"){
 				else{
 					echo "<td>Present</td>";
 				}
-				//$_SESSION["mod"] = $rep[$i]->id;
-
-				if ($rep[$i]->date > $repD[0]->jour) {
+					if ($rep[$i]->date > $repD[0]->jour) {
 					echo "<td><a href='controller/ajout_rdv_main.php?idRdv=".$rep[$i]->id."'>Modifier</a></td>";
 				}
-				echo "<td>".$_SESSION["mod"]."</td>";
-				echo "</tr>";
-				//unset($_SESSION["mod"]);
-				//$_SESSION["mod"] = $rep[$i]->id;
-				echo "session : ".$_SESSION["mod"];
 			}
-		?>	
-		</table>
-		<input type="submit" name="AjoutRdv" value="Prendre un rendez-vous">
-	</form>
-	</body>
-</html>
+	}
+	else if(Chiffrement::decrypt($_SESSION['type']) == "medecin"){
+		for ($i=0; $i < sizeof($rep); $i++) {
+			$selM = "SELECT * FROM utilisateur WHERE id = :idM;";
+			$reqM = $bdd->prepareQuery($selM, array(":idM" => $rep[$i]->id_patient));
+			$selO = "SELECT * FROM ordonnace WHERE rdv = :rdv;";
+			echo "<tr>";
+			echo "<td>".$rep[$i]->date.""."</td>";
+			echo "<td>".$rep[$i]->descriptif."</td>";
+			if ($rep[$i]->date > $repD[0]->jour) {
+				echo "<td><a href='rendez-vous/".Chiffrement::crypt($rep[$i]->id)."'>".$reqM[0]->prenom." ".$reqM[0]->nom."</a></td>";
+			}else{
+				echo "<td>".$reqM[0]->prenom." ".$reqM[0]->nom."</td>";
+			}
+			if ($rep[$i]->presence == 0) {
+				echo "<td>Absent</td>";
+			}
+			else{
+				echo "<td>Present</td>";
+			}
+		}
+	}
+}
+else{
+	echo 'Vous n\'avez pas de rendez vous';
+}
+?>	
+</table>
+<?php 
+	if(Chiffrement::decrypt($_SESSION['type']) == "medecin")echo '<a href="ajouter-rendez-vous">Ajouter Rendez-vous</a>';
+	else if(Chiffrement::decrypt($_SESSION['type']) == "medecin")echo '<a href="ajouter-rendez-vous">Prendre Rendez-vous</a>';
+?>
+</div>

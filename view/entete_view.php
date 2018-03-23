@@ -16,6 +16,7 @@ session_start();
 <html>
 <head>
 	<meta charset="utf-8"> 
+	<?php echo '<link rel="stylesheet" href="'.Html::redirection().'css/style_1.css"/>';?>
 	<title>Accueil</title>
 </head>
 <body>
