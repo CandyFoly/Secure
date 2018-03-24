@@ -5,7 +5,7 @@ class connexion{
 	private  $db_pass;
 	private  $db_host;
 	private  $pdo;
-	
+	//login : medecin_patient; mdp = 8PGHNwDRALDrBdMv;
 	public function __construct($db_name = "hopital", $db_user = "root", $db_pass = "root", $db_host = "127.0.0.1"){
 		$this->db_name = $db_name;
 		$this->db_user = $db_user;
