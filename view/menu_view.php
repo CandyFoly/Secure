@@ -17,6 +17,7 @@ if(isset($_SESSION['connect'])){
 			<li><a href='".Html::redirection()."patient'>Patient</a></li>";
 	}
 		echo '
+				<li><a href="'.Html::redirection().'mon-profil">Mon Profil</a></li>
 				<li><a href="'.Html::redirection().'deconnect">Deconnexion</a></li>
 			</ul>';
 }else{

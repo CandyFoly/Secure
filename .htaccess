@@ -51,6 +51,7 @@ RewriteRule ^suivis$ controller/suivis_main.php [L]
 
 #Page Medecin
 RewriteRule ^medecin$ controller/liste_medecin_main.php [L]
+RewriteRule ^mon-profil$ controller/profil_main.php [L]
 
 #Page Message
 RewriteRule ^message$ controller/message_main.php [L]
