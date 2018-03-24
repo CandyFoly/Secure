@@ -41,6 +41,11 @@ RewriteRule ^rendez-vous/([\w\s]{5,200})[+]([\w\s]{5,200})[+]([\w\s]{1,200})[=][
 RewriteRule ^rendez-vous/([\w\s]{5,200})([=])([=$])$ controller/ajout_rdv_main.php [L]
 RewriteRule ^rendes-vous/([\w\s]{5,200})[/]([\w\s]{5,200})[=][=$]$ controller/ajout_rdv_main.php [L]
 
+RewriteRule ^gestion/([\w\s]{5,200})[+]([\w\s]{5,200})[=][=$]$ controller/gestion_main.php [L]
+RewriteRule ^gestion/([\w\s]{5,200})[+]([\w\s]{5,200})[+]([\w\s]{1,200})[=][=$]$ controller/gestion_main.php [L]
+RewriteRule ^gestion/([\w\s]{5,200})([=])([=$])$ controller/gestion_main.php [L]
+RewriteRule ^gestion/([\w\s]{5,200})[/]([\w\s]{5,200})[=][=$]$ controller/gestion_main.php [L]
+
 #Page Suivis
 RewriteRule ^suivis$ controller/suivis_main.php [L]
 
